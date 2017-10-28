@@ -16,16 +16,18 @@
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var ballRadius = 10;
+var obstacleSize = 20;
 var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 0;
 var dy = -2
+var level = 1;
 //player 1
 var playerHeight = 20;
 var playerWidth = 20;
 var playerX = 100;
-var playerY = (canvas.height-playerHeight)/2
+var playerY = 120;
+var spawndiff = 30;
 //player 2
 var player2Height = 20;
 var player2Width = 20;
@@ -103,10 +105,10 @@ function keyUpHandler(e) {
     }
 }
 
-function drawBall(n) {
+function drawEnemy(n) {
     ctx.beginPath();
-    ctx.arc(x, y+(2*n*ballRadius), ballRadius, 0, Math.PI*2);
-    ctx.fillStyle = "#0095DD";
+    ctx.rect(x, y+(2*n*obstacleSize), obstacleSize, obstacleSize);
+    ctx.fillStyle = "#FF0000";
     ctx.fill();
     ctx.closePath();
 }
@@ -125,17 +127,19 @@ function drawplayer2() {
     ctx.fill();
     ctx.closePath();
 }
-
-function draw() {
+//SCORE
+var count = 0;
+var count2 = 0;
+function main() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBall(0);
+    drawEnemy(0);
     drawplayer();
     drawplayer2();
 
-    if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+    if(x + dx > canvas.width-obstacleSize || x + dx < obstacleSize) {
         dx = -dx;
     }
-    if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) {
+    if(y + dy > canvas.height-obstacleSize || y + dy < obstacleSize) {
         dy = -dy;
     }
   //Player1
@@ -165,15 +169,85 @@ function draw() {
         player2Y += 3;
     }
 
+//RESET AND PLAYER EARNS POINT
+    if (playerX > 575) {
+      count += 1;
+      reset(1);
+      reset(2);
+      if (level < 6){
+        level += 1;
+      }
+      else {
+        level += 0.5;
+      }
 
-    x += dx;
-    y += dy;
+    }
+    if (player2X > 575) {
+      count2 += 1;
+      reset(1);
+      reset(2);
+      if (level < 6){
+        level += 1;
+      }
+      else {
+        level += 0.5;
+      }
+    }
+//COLLISION WITH BALL PLAYER 1
+    if (playerX + playerWidth >= x && playerX + playerWidth <= x + obstacleSize){
+      if (playerY + playerHeight >= y && playerY + playerHeight <= y + obstacleSize){
+          reset(1);
+      }
+      else if (playerY >= y && playerY <= y + obstacleSize){
+        reset(1);
+      }
+    }
+    else if (playerX >= x && playerX <= x + obstacleSize){
+      if (playerY + playerHeight >= y && playerY + playerHeight <= y + obstacleSize){
+          reset(1);
+      }
+      else if (playerY >= y && playerY <= y + obstacleSize){
+        reset(1);
+      }
+    }
+//COLLISION WITH BALL PLAYER 2
+    if (player2X + player2Width >= x && player2X + player2Width <= x + obstacleSize){
+      if (player2Y + player2Height >= y && player2Y + player2Height <= y + obstacleSize){
+          reset(2);
+      }
+      else if (player2Y >= y && player2Y <= y + obstacleSize){
+        reset(2);
+      }
+    }
+    else if (player2X >= x && player2X <= x + obstacleSize){
+      if (player2Y + player2Height >= y && player2Y + player2Height <= y + obstacleSize){
+          reset(2);
+      }
+      else if (player2Y >= y && player2Y <= y + obstacleSize){
+        reset(2);
+      }
+    }
+
+function reset(playerID){
+    if (playerID == 1) {
+      playerX = 100;
+      playerY = 120;
+    }
+    else if (playerID == 2){
+
+      player2X = 100;
+      player2Y = 120 + spawndiff * playerID;
+
+    }
 }
 
-setInterval(draw, 10);
+    x += dx;
+    y += dy * level;
+}
+
+setInterval(main, 10);
 
 
 </script>
-
 </body>
 </html>
