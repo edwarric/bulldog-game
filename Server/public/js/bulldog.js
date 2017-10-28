@@ -1,9 +1,9 @@
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var obstacleSize = 20;
-var x = canvas.width/2;
-var y = canvas.height-30;
+var enemySize = 20;
+var enemyX = canvas.width/2;
+var enemyY = canvas.height-30;
 var dx = 0;
 var dy = -2
 var level = 1;
@@ -92,7 +92,7 @@ function keyUpHandler(e) {
 
 function drawEnemy(n) {
     ctx.beginPath();
-    ctx.rect(x, y+(2*n*obstacleSize), obstacleSize, obstacleSize);
+    ctx.rect(enemyX, enemyY+(2*n*enemySize), enemySize, enemySize);
     ctx.fillStyle = "#FF0000";
     ctx.fill();
     ctx.closePath();
@@ -121,10 +121,10 @@ function main() {
     drawplayer();
     drawplayer2();
 
-    if(x + dx > canvas.width-obstacleSize || x + dx < obstacleSize) {
+    if(enemyX + dx > canvas.width-enemySize || enemyX + dx < enemySize) {
         dx = -dx;
     }
-    if(y + dy > canvas.height-obstacleSize || y + dy < obstacleSize) {
+    if(enemyY + dy > canvas.height-enemySize || enemyY + dy < enemySize) {
         dy = -dy;
     }
   //Player1
@@ -179,36 +179,36 @@ function main() {
       }
     }
 //COLLISION WITH BALL PLAYER 1
-    if (playerX + playerWidth >= x && playerX + playerWidth <= x + obstacleSize){
-      if (playerY + playerHeight >= y && playerY + playerHeight <= y + obstacleSize){
+    if (playerX + playerWidth >= enemyX && playerX + playerWidth <= enemyX + enemySize){
+      if (playerY + playerHeight >= enemyY && playerY + playerHeight <= enemyY + enemySize){
           reset(1);
       }
-      else if (playerY >= y && playerY <= y + obstacleSize){
+      else if (playerY >= enemyY && playerY <= enemyY + enemySize){
         reset(1);
       }
     }
-    else if (playerX >= x && playerX <= x + obstacleSize){
-      if (playerY + playerHeight >= y && playerY + playerHeight <= y + obstacleSize){
+    else if (playerX >= enemyX && playerX <= enemyX + enemySize){
+      if (playerY + playerHeight >= enemyY && playerY + playerHeight <= enemyY + enemySize){
           reset(1);
       }
-      else if (playerY >= y && playerY <= y + obstacleSize){
+      else if (playerY >= enemyY && playerY <= enemyY + enemySize){
         reset(1);
       }
     }
 //COLLISION WITH BALL PLAYER 2
-    if (player2X + player2Width >= x && player2X + player2Width <= x + obstacleSize){
-      if (player2Y + player2Height >= y && player2Y + player2Height <= y + obstacleSize){
+    if (player2X + player2Width >= enemyX && player2X + player2Width <= enemyX + enemySize){
+      if (player2Y + player2Height >= enemyY && player2Y + player2Height <= enemyY + enemySize){
           reset(2);
       }
-      else if (player2Y >= y && player2Y <= y + obstacleSize){
+      else if (player2Y >= enemyY && player2Y <= enemyY + enemySize){
         reset(2);
       }
     }
-    else if (player2X >= x && player2X <= x + obstacleSize){
-      if (player2Y + player2Height >= y && player2Y + player2Height <= y + obstacleSize){
+    else if (player2X >= enemyX && player2X <= enemyX + enemySize){
+      if (player2Y + player2Height >= enemyY && player2Y + player2Height <= enemyY + enemySize){
           reset(2);
       }
-      else if (player2Y >= y && player2Y <= y + obstacleSize){
+      else if (player2Y >= enemyY && player2Y <= enemyY + enemySize){
         reset(2);
       }
     }
@@ -226,8 +226,8 @@ function reset(playerID){
     }
 }
 
-    x += dx;
-    y += dy * level;
+    enemyX += dx;
+    enemyY += dy * level;
 }
 
 setInterval(main, 10);
