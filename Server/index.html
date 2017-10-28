@@ -13,10 +13,29 @@
       #messages li:nth-child(odd) { background: #eee; }
     </style>
   </head>
+  <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
+  $(function () {
     var socket = io();
-  </script>
+    var player = {
+      x: 5,
+      y: 6,
+    }
+
+    $('form').submit(function(){
+      player.name = $('#m').val();
+      socket.emit('new player', player);
+      $('form').hide();
+      return false;
+    });
+
+    socket.on('game update', function(players){
+      console.log('update: ' + players.length);
+    });
+
+  });
+</script>
   <body>
     <ul id="messages"></ul>
     <form action="">
