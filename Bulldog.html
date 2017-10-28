@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Fehed's Brick Breaker</title>
+    <title>BullDOG</title>
     <style>
     	* { padding: 0; margin: 0; }
     	canvas { background: #eee; display: block; margin: 0 auto; }
@@ -21,16 +21,16 @@ var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 0;
 var dy = -2
-//Paddle 1
-var paddleHeight = 20;
-var paddleWidth = 20;
-var paddleX = 100;
-var paddleY = (canvas.height-paddleHeight)/2
-//Paddle 2
-var paddle2Height = 20;
-var paddle2Width = 20;
-var paddle2X = 100;
-var paddle2Y = 150
+//player 1
+var playerHeight = 20;
+var playerWidth = 20;
+var playerX = 100;
+var playerY = (canvas.height-playerHeight)/2
+//player 2
+var player2Height = 20;
+var player2Width = 20;
+var player2X = 100;
+var player2Y = 150
 //Motion
 var rightPressed = false;
 var leftPressed = false;
@@ -105,22 +105,22 @@ function keyUpHandler(e) {
 
 function drawBall(n) {
     ctx.beginPath();
-    ctx.arc(x, y+n, ballRadius, 0, Math.PI*2);
+    ctx.arc(x, y+(2*n*ballRadius), ballRadius, 0, Math.PI*2);
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
 }
-function drawPaddle() {
+function drawplayer() {
     ctx.beginPath();
-    ctx.rect(paddleX, paddleY, paddleWidth, paddleHeight);
+    ctx.rect(playerX, playerY, playerWidth, playerHeight);
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
 }
 
-function drawPaddle2() {
+function drawplayer2() {
     ctx.beginPath();
-    ctx.rect(paddle2X, paddle2Y, paddle2Width, paddle2Height);
+    ctx.rect(player2X, player2Y, player2Width, player2Height);
     ctx.fillStyle = "#0035DD";
     ctx.fill();
     ctx.closePath();
@@ -129,8 +129,8 @@ function drawPaddle2() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall(0);
-    drawPaddle();
-    drawPaddle2();
+    drawplayer();
+    drawplayer2();
 
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -138,31 +138,31 @@ function draw() {
     if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) {
         dy = -dy;
     }
-//Player1
-    if(rightPressed && paddleX < canvas.width-paddleWidth) {
-        paddleX += 3;
+  //Player1
+    if(rightPressed && playerX < canvas.width-playerWidth) {
+        playerX += 3;
     }
-    else if(leftPressed && paddleX > 0) {
-        paddleX -= 3;
+    else if(leftPressed && playerX > 0) {
+        playerX -= 3;
     }
-    else if(upPressed && paddleY > 0 ) {
-        paddleY -= 3;
+    else if(upPressed && playerY > 0 ) {
+        playerY -= 3;
     }
-    else if(downPressed && paddleY < canvas.height-paddleHeight) {
-        paddleY += 3;
+    else if(downPressed && playerY < canvas.height-playerHeight) {
+        playerY += 3;
     }
 //PLAYER 2
-    if(right2Pressed && paddle2X < canvas.width-paddle2Width) {
-        paddle2X += 3;
+    if(right2Pressed && player2X < canvas.width-player2Width) {
+        player2X += 3;
     }
-    else if(left2Pressed && paddle2X > 0) {
-        paddle2X -= 3;
+    else if(left2Pressed && player2X > 0) {
+        player2X -= 3;
     }
-    else if(up2Pressed && paddle2Y > 0 ) {
-        paddle2Y -= 3;
+    else if(up2Pressed && player2Y > 0 ) {
+        player2Y -= 3;
     }
-    else if(down2Pressed && paddle2Y < canvas.height-paddle2Height) {
-        paddle2Y += 3;
+    else if(down2Pressed && player2Y < canvas.height-player2Height) {
+        player2Y += 3;
     }
 
 
