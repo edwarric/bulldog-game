@@ -25,7 +25,9 @@
 
 <script>
 var onlinePlayerPositions = [];
+var onlineEnemy;
 $(function () {
+
 var socket = io();
 var player = {
   x: 5,
@@ -39,9 +41,10 @@ $('form').submit(function(){
   return false;
 });
 socket.emit('new player', 'cheese');
-socket.on('game update', function(players){
-  onlinePlayerPositions = players;
-  console.log('update: ' + players.length);
+socket.on('game update', function(update){
+  onlinePlayerPositions = update.players;
+  onlineEnemy = update.enemy;
+  console.log('update: ' + onlineEnemy.y);
 });
 
 function gameloop() {
