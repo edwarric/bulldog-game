@@ -14,7 +14,6 @@ var timeleft = 10;
 
 
 app.get('/', function(req, res){
-
   res.sendFile(__dirname + '/index.html');
 });
 
@@ -111,9 +110,10 @@ function timeRemaining(){
           setPlayerAsDead(player);
         }
       }
+    }
   }
-}
   var secondIncrement = setInterval(timeRemaining, 1000);
+}
 function resetLevel(){
   for (var playerID in players) {
     var player = players[playerID];
@@ -124,6 +124,7 @@ function resetLevel(){
 
       }
     }
+  }
 }  
 function gameloop() {
   manageEnemy();
@@ -137,8 +138,6 @@ function gameloop() {
     }
   }
   io.emit('game update', update);
-
-
 };
 var timer = setInterval(gameloop, 20);
 
