@@ -1,15 +1,8 @@
-players[i].sizevar express = require('express');
+var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var players = [];
-var enemyHeight = 50; // enemies
-var enemyWidth = 30;
-var enemyX = 300;
-var enemyY = 225;
-var dx = 0;
-var dy = -2;
-var level= 1;
+var players = {};
 
 app.get('/', function(req, res){
 
@@ -20,51 +13,32 @@ app.use("/public", express.static(__dirname + '/public'))
 
 
 io.on('connection', function(socket){
-  var player;
   socket.on('new player', function(player){
-    players.push(player);
-    this.player = player;
-    console.log('message: ' + player.name);
+    players[socket.id] = {
+      name: player
+    };
   });
-  socket.on('disconnect', function(){
-    for (var i = 0; i < players.length; i++) {
-      if (players[i].name === this.player.name) {
-        players.splice(i, 1);
-        console.log('removed player from game');
-        i--;
-      }
+  socket.on('player update', function (playerUpdate) {
+    if (players[socket.id] !== undefined) {
+      players[socket.id].x = playerUpdate.x;
+      players[socket.id].y = playerUpdate.y;
+      console.log(playerUpdate.x);
+      console.log(socket.id);
     }
+  })
+  socket.on('disconnect', function(){
+    players[socket.id] = undefined;
+    //players[this.playerIndex].dead = true;
     console.log('user disconnected');
   });
-  console.log('a user connected');
+  console.log('a user connected' + socket.id);
 });
-function manageEnemy(){
-  enemyX += dx;
-  enemyY += dy * level;
-  //check if a player got killed
-  for (var i = 0; i < players.length; i++){
-    if (players[i].x + players[i].size >= enemyX && players[i].x + playerWidth <= enemyX + enemyWidth){
-      if (players[i].y + players[i].size >= enemyY && players[i].y + players[i].size <= enemyY + enemyHeight){
-          players[i].isAlive = false
-      }
-      else if (players[i].y >= enemyY && players[i].y <= enemyY + enemyHeight){
-          players[i].isAlive = false
-      }
-    }
-    else if (players[i].x >= enemyX && players[i].x <= enemyX + enemyWidth){
-      if (players[i].y + players[i].size >= enemyY && players[i].y + players[i].size <= enemyY + enemyHeight){
-          players[i].isAlive = false
-      }
-      else if (players[i].y >= enemyY && players[i].y <= enemyY + enemyHeight){
-          players[i].isAlive = false
-      }
-    }
-  }
-}
-(function gameloop() {
-  var timer = setInterval(gameloop, 100);
+
+
+function gameloop() {
   io.emit('game update', players);
-})();
+};
+var timer = setInterval(gameloop, 200);
 
 http.listen(3001, function(){
   console.log('listening on *:3001');
