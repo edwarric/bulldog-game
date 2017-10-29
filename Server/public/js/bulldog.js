@@ -1,7 +1,8 @@
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var enemySize = 20;
+var enemyWidth = 20;
+var enemyHeight = 20;
 var enemyX = canvas.width/2;
 var enemyY = canvas.height-30;
 var dx = 0;
