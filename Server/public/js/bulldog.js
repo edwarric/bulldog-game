@@ -98,7 +98,7 @@ function drawplayer() {
     if (player.isAlive == true) {
         ctx.beginPath();
         ctx.rect(playerX, playerY, playerWidth, playerHeight);
-        ctx.fillStyle = "#0095DD";
+        ctx.fillStyle = "#3ECC3E";
         ctx.fill();
         ctx.closePath();
     }

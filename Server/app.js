@@ -4,13 +4,13 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var players = {};
 var enemyHeight = 50; // enemies
-var enemyWidth = 30;
+var enemyWidth = 20;
 var enemyX = 300;
 var enemyY = 225;
 var dx = 0;
 var dy = -2;
 var level= 0;
-var timeleft = 10;
+var timeleft = 6;
 var isGameRunning = false;
 
 
@@ -64,6 +64,7 @@ function manageEnemy(){
   for (var playerID in players) {
     var player = players[playerID];
     if (player !== undefined) {
+
       if (player.x + player.Width >= enemyX && player.x + player.Width <= enemyX + enemyWidth){
         if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
           setPlayerAsDead(player);
@@ -107,7 +108,7 @@ function timeRemaining(){
   }
   if (timeleft == 0){
     level += 1;
-    timeleft = 10;
+    timeleft = 6;
     io.emit('next level', level);
     for (var playerID in players) {
       var player = players[playerID];
