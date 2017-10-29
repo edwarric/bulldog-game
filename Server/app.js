@@ -10,6 +10,8 @@ var enemyY = 225;
 var dx = 0;
 var dy = -2;
 var level= 1;
+var timeleft = 10;
+
 
 app.get('/', function(req, res){
 
@@ -46,7 +48,7 @@ function manageEnemy(){
   if(enemyX + dx > 600 - enemyWidth || enemyX + dx < 1) {
       dx = -dx;
   }
-  if(enemyY + dy  + enemyHeight > 450 || enemyY + dy < 1) {
+  if(enemyY + dy > 450 || enemyY + dy < 1) {
       dy = -dy;
   }
   enemyX += dx;
@@ -55,27 +57,37 @@ function manageEnemy(){
   //check if a player got killed
   for (var playerID in players) {
     var player = players[playerID];
-    if (player !== undefined) {
-      if (player.x + player.Width >= enemyX && player.x + player.Width <= enemyX + enemyWidth){
-        if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
-            player.isAlive = false
-        }
-        else if (player.y >= enemyY && player.y <= enemyY + enemyHeight){
-            player.isAlive = false
-        }
+    if (player.x + player.Width >= enemyX && player.x + player.Width <= enemyX + enemyWidth){
+      if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
+          player.isAlive = false
       }
-      else if (player.x >= enemyX && player.x <= enemyX + enemyWidth){
-        if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
-            player.isAlive = false
-        }
-        else if (player.y >= enemyY && player.y <= enemyY + enemyHeight){
-            player.isAlive = false
-        }
+      else if (player.y >= enemyY && player.y <= enemyY + enemyHeight){
+          player.isAlive = false
+      }
+    }
+    else if (player.x >= enemyX && player.x <= enemyX + enemyWidth){
+      if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
+          player.isAlive = false
+      }
+      else if (player.y >= enemyY && player.y <= enemyY + enemyHeight){
+          player.isAlive = false
       }
     }
   }
 }
 
+//IMPLEMENTING TIMER
+function timeRemaining(){
+  //timeLeft starts at 10
+  timeleft -= 1;
+  console.log(timeleft);
+  if (timeleft == 0){
+    timeleft = 10;
+  }
+}
+  var secondIncrement = setInterval(timeRemaining, 1000);
+
+  
 function gameloop() {
   manageEnemy();
   var update = {
