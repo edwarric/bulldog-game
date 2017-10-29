@@ -76,11 +76,11 @@ function manageEnemy(){
   }
 }
 
-//IMPLEMENTING TIME
+//IMPLEMENTING TIMER
 function timeRemaining(){
   //timeLeft starts at 10
-  timeleft -= 1
-  console.log(timeleft)
+  timeleft -= 1;
+  console.log(timeleft);
   if (timeleft == 0){
     timeleft = 10;
   }
