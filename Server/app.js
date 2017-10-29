@@ -15,7 +15,6 @@ var isGameRunning = false;
 
 
 app.get('/', function(req, res){
-
   res.sendFile(__dirname + '/index.html');
 });
 
@@ -55,7 +54,7 @@ function manageEnemy(){
   if(enemyX + dx > 600 - enemyWidth || enemyX + dx < 1) {
       dx = -dx;
   }
-  if(enemyY + dy > 450 || enemyY + dy < 1) {
+  if(enemyY + dy  + enemyHeight > 450 || enemyY + dy < 1) {
       dy = -dy;
   }
   enemyX += dx;
@@ -111,10 +110,30 @@ function timeRemaining(){
     level += 1;
     timeleft = 10;
     io.emit('next level', level);
+    for (var playerID in players) {
+      var player = players[playerID];
+      
+      if (player !== undefined) {
+        if (player.isFinished == false){
+          setPlayerAsDead(player);
+        }
+      }
+    }
   }
-}
   var secondIncrement = setInterval(timeRemaining, 1000);
-  
+}
+function resetLevel(){
+  for (var playerID in players) {
+    var player = players[playerID];
+    var count = 0;
+    if (player !== undefined) {
+      if (player.isAlive == true){
+        player.isFinished = false;
+
+      }
+    }
+  }
+}  
 function gameloop() {
   manageEnemy();
   var update = {
@@ -127,8 +146,6 @@ function gameloop() {
     }
   }
   io.emit('game update', update);
-
-
 };
 var timer = setInterval(gameloop, 20);
 
