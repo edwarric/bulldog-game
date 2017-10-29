@@ -9,8 +9,9 @@ var enemyX = 300;
 var enemyY = 225;
 var dx = 0;
 var dy = -2;
-var level= 1;
+var level= 0;
 var timeleft = 10;
+var isGameRunning = false;
 
 
 app.get('/', function(req, res){
@@ -40,6 +41,12 @@ io.on('connection', function(socket){
     //players[this.playerIndex].dead = true;
     console.log('user disconnected');
   });
+  socket.on('start game', function(){
+    isGameRunning = true;
+    level = 1;
+    socket.emit("game start");
+    console.log("Hello");
+  })
   console.log('a user connected' + socket.id);
 });
 
@@ -97,8 +104,9 @@ function setPlayerAsDead(player) {
 //IMPLEMENTING TIMER
 function timeRemaining(){
   //timeLeft starts at 10
+  if (isGameRunning === true) {
   timeleft -= 1;
-
+  }
   if (timeleft == 0){
     level += 1;
     timeleft = 10;

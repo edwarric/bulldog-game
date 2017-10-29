@@ -114,6 +114,10 @@ $(function () {
       y: 6,
     }
 
+    $('#startGame').click(function() {
+      socket.emit('start game', true);
+    });
+
     $('form').submit(function(){
       player.name = $('#m').val();
       socket.emit('new player', player);
@@ -126,6 +130,10 @@ $(function () {
       onlinePlayerPositions = update.players;
       onlineEnemy = update.enemy;
     });
+
+    socket.on('game start', function(){
+      $("#startGame").hide();
+    })
 
     socket.on('next level', function(level){
       console.log("nextlevel")
@@ -157,6 +165,7 @@ $(function () {
         </form>
       </div>
   <canvas id="myCanvas" width="600" height="450"></canvas>
+  <button id = "startGame">startGame</button>
 </body>
 <script src="/public/js/bulldog.js"></script>
 </html>
