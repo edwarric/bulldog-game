@@ -102,6 +102,13 @@ function drawplayer() {
         ctx.fill();
         ctx.closePath();
     }
+    else if (player.isAlive == false) {
+        ctx.beginPath();
+        ctx.rect(playerX, playerY, playerWidth, playerHeight);
+        ctx.fillStyle = "#999966";
+        ctx.fill();
+        ctx.closePath();
+    }
     
 }
 
@@ -127,30 +134,33 @@ function main() {
     drawplayer();
 
   //Player1
-    if(rightPressed && playerX < canvas.width-playerWidth) {
-        playerX += 3;
-    }
-    else if(leftPressed && playerX > 0) {
-        playerX -= 3;
-    }
-    else if(upPressed && playerY > 0 ) {
-        playerY -= 3;
-    }
-    else if(downPressed && playerY < canvas.height-playerHeight) {
-        playerY += 3;
-    }
-//PLAYER 2
-    if(right2Pressed && player2X < canvas.width-player2Width) {
-        player2X += 3;
-    }
-    else if(left2Pressed && player2X > 0) {
-        player2X -= 3;
-    }
-    else if(up2Pressed && player2Y > 0 ) {
-        player2Y -= 3;
-    }
-    else if(down2Pressed && player2Y < canvas.height-player2Height) {
-        player2Y += 3;
+  var player = onlinePlayerPositions[onlineid];
+  if (player.isAlive == true) {
+        if(rightPressed && playerX < canvas.width-playerWidth) {
+            playerX += 3;
+        }
+        else if(leftPressed && playerX > 0) {
+            playerX -= 3;
+        }
+        else if(upPressed && playerY > 0 ) {
+            playerY -= 3;
+        }
+        else if(downPressed && playerY < canvas.height-playerHeight) {
+            playerY += 3;
+        }
+    //PLAYER 2
+        if(right2Pressed && player2X < canvas.width-player2Width) {
+            player2X += 3;
+        }
+        else if(left2Pressed && player2X > 0) {
+            player2X -= 3;
+        }
+        else if(up2Pressed && player2Y > 0 ) {
+            player2Y -= 3;
+        }
+        else if(down2Pressed && player2Y < canvas.height-player2Height) {
+            player2Y += 3;
+        }
     }
 
 //RESET AND PLAYER EARNS POINT
