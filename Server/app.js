@@ -85,13 +85,9 @@ function timeRemaining(){
     timeleft = 10;
   }
 }
-  var secondIncrement = setInterval(timeRemaining, 1000)
-  
-  
-  
-  
-  
+  var secondIncrement = setInterval(timeRemaining, 1000);
 
+  
 function gameloop() {
   manageEnemy();
   var update = {
