@@ -87,7 +87,6 @@ function keyUpHandler(e) {
 }
 
 function drawEnemy() {
-    console.log(onlineEnemy);
     ctx.beginPath();
     ctx.rect(onlineEnemy.x, onlineEnemy.y, onlineEnemy.width, onlineEnemy.height);
     ctx.fillStyle = "#FF0000";
@@ -95,22 +94,26 @@ function drawEnemy() {
     ctx.closePath();
 }
 function drawplayer() {
-    ctx.beginPath();
-    ctx.rect(playerX, playerY, playerWidth, playerHeight);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
+    var player = onlinePlayerPositions[onlineid];
+    if (player.isAlive == true) {
+        ctx.beginPath();
+        ctx.rect(playerX, playerY, playerWidth, playerHeight);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+    }
+    
 }
 
 function drawotherplayers() {
   for (var playerID in onlinePlayerPositions) {
     if (playerID != onlineid) {
-    var player = onlinePlayerPositions[playerID];
-    ctx.beginPath();
-    ctx.rect(player.x, player.y, player2Width, player2Height);
-    ctx.fillStyle = "#0035DD";
-    ctx.fill();
-    ctx.closePath();
+        var player = onlinePlayerPositions[playerID];
+        ctx.beginPath();
+        ctx.rect(player.x, player.y, player2Width, player2Height);
+        ctx.fillStyle = "#0035DD";
+        ctx.fill();
+        ctx.closePath();
     }
   }
 }

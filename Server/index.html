@@ -137,11 +137,19 @@ $(function () {
     socket.on('game update', function(update){
       onlinePlayerPositions = update.players;
       onlineEnemy = update.enemy;
-      console.log('update: ' + onlineEnemy.y);
+    });
+
+    socket.on('next level', function(level){
+      console.log("nextlevel")
+      var player = onlinePlayerPositions[onlineid];
+      console.log(player);
+      if (player.isAlive === true) {
+        playerX = 5;
+        playerY = 6;
+      }
     });
 
     function gameloop() {
-      console.log('updating pos');
       socket.emit('player update', {
         x: playerX,
         y: playerY,
