@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
 var players = {};
 var enemyHeight = 50; // enemies
 var enemyWidth = 20;
@@ -151,6 +151,4 @@ function gameloop() {
 };
 var timer = setInterval(gameloop, 20);
 
-http.listen(3001, function(){
-  console.log('listening on *:3001');
-});
+server.listen(3001, '0.0.0.0');
