@@ -26,6 +26,11 @@
 <script>
 var onlinePlayerPositions = [];
 var onlineEnemy;
+var socket = io();
+socket.on('connect', function() {
+  console.log(socket);
+  onlineid = socket.id;
+});
 $(function () {
 
 var socket = io();
