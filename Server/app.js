@@ -10,6 +10,8 @@ var enemyY = 225;
 var dx = 0;
 var dy = -2;
 var level= 1;
+var timeleft = 10;
+
 
 app.get('/', function(req, res){
 
@@ -46,7 +48,7 @@ function manageEnemy(){
   if(enemyX + dx > 600 - enemyWidth || enemyX + dx < 1) {
       dx = -dx;
   }
-  if(enemyY + dy  + enemyHeight > 450 || enemyY + dy < 1) {
+  if(enemyY + dy > 450 || enemyY + dy < 1) {
       dy = -dy;
   }
   enemyX += dx;
@@ -74,13 +76,36 @@ function manageEnemy(){
       }
     }
   }
+  checkWin();
 }
-
+function checkWin(){
+  for (var playerID in players) {
+    var player = players[playerID];
+    if (player !== undefined) {
+      if (player.x >= 575){
+        player.hasFinished = true;
+        console.log("win");
+      }
+    }
+  }
+}
 function setPlayerAsDead(player) {
   player.isAlive = false;
   console.log("dead");
 }
 
+//IMPLEMENTING TIMER
+function timeRemaining(){
+  //timeLeft starts at 10
+  timeleft -= 1;
+  console.log(timeleft);
+  if (timeleft == 0){
+    timeleft = 10;
+  }
+}
+  var secondIncrement = setInterval(timeRemaining, 1000);
+
+  
 function gameloop() {
   manageEnemy();
   var update = {
