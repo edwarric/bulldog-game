@@ -47,7 +47,7 @@ function manageEnemy(){
   if(enemyX + dx > 600 - enemyWidth || enemyX + dx < 1) {
       dx = -dx;
   }
-  if(enemyY + dy > 450 || enemyY + dy < 1) {
+  if(enemyY + dy  + enemyHeight > 450 || enemyY + dy < 1) {
       dy = -dy;
   }
   enemyX += dx;
