@@ -1,7 +1,7 @@
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var obstacleSize = 20;
+var obstacleSize = 30;
 var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 0;
@@ -28,6 +28,9 @@ var right2Pressed = false;
 var left2Pressed = false;
 var down2Pressed = false;
 var up2Pressed = false;
+
+var timeleft = 10;
+
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -105,24 +108,22 @@ function drawplayer() {
     ctx.closePath();
 }
 
-function drawotherplayers() {
-  for (var playerID in onlinePlayerPositions) {
-    var player = onlinePlayerPositions[playerID];
+function drawplayer2() {
     ctx.beginPath();
-    ctx.rect(player.x, player.y, player2Width, player2Height);
+    ctx.rect(player2X, player2Y, player2Width, player2Height);
     ctx.fillStyle = "#0035DD";
     ctx.fill();
     ctx.closePath();
-  }
 }
+
 //SCORE
 var count = 0;
 var count2 = 0;
 function main() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawEnemy(0);
-    drawotherplayers();
     drawplayer();
+    drawplayer2();
 
     if(x + dx > canvas.width-obstacleSize || x + dx < obstacleSize) {
         dx = -dx;
@@ -216,6 +217,7 @@ function main() {
       }
     }
 
+
 function reset(playerID){
     if (playerID == 1) {
       playerX = 100;
@@ -231,6 +233,7 @@ function reset(playerID){
 
     x += dx;
     y += dy * level;
-}
+
+
 
 setInterval(main, 10);
