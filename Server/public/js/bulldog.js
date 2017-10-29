@@ -87,7 +87,7 @@ function keyUpHandler(e) {
 }
 
 function drawEnemy() {
-    console.log(onlineEnemy);
+    
     ctx.beginPath();
     ctx.rect(onlineEnemy.x, onlineEnemy.y, onlineEnemy.width, onlineEnemy.height);
     ctx.fillStyle = "#FF0000";

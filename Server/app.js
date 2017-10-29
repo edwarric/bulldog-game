@@ -24,7 +24,8 @@ app.use("/public", express.static(__dirname + '/public'))
 io.on('connection', function(socket){
   socket.on('new player', function(player){
     players[socket.id] = {
-      name: player
+      name: player,
+      isAlive : true,
     };
   });
   socket.on('player update', function (playerUpdate) {
@@ -82,7 +83,9 @@ function timeRemaining(){
   timeleft -= 1;
   console.log(timeleft);
   if (timeleft == 0){
+    level += 1;
     timeleft = 10;
+    io.emit('next level', level);
   }
 }
   var secondIncrement = setInterval(timeRemaining, 1000);
