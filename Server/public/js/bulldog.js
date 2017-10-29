@@ -94,13 +94,15 @@ function drawEnemy() {
     ctx.closePath();
 }
 function drawplayer() {
-    if (player !== undefined) {
+    var player = onlinePlayerPositions[onlineid];
+    if (player.isAlive == true) {
         ctx.beginPath();
         ctx.rect(playerX, playerY, playerWidth, playerHeight);
         ctx.fillStyle = "#0095DD";
         ctx.fill();
         ctx.closePath();
     }
+    
 }
 
 function drawotherplayers() {
@@ -152,7 +154,7 @@ function main() {
     }
 
 //RESET AND PLAYER EARNS POINT
-  /*  if (playerX > 575) {
+    if (playerX > 575) {
       count += 1;
       reset(1);
       reset(2);
@@ -187,7 +189,7 @@ function reset(playerID){
       player2Y = 120 + spawndiff * playerID;
 
     }
-}*/
+}
 
 
 }
