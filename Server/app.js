@@ -102,7 +102,6 @@ function setPlayerAsDead(player) {
 
 //IMPLEMENTING TIMER
 function timeRemaining(){
-  //timeLeft starts at 10
   if (isGameRunning === true) {
   timeleft -= 1;
   }
@@ -120,8 +119,10 @@ function timeRemaining(){
       }
     }
   }
-  var secondIncrement = setInterval(timeRemaining, 1000);
+
 }
+  var secondIncrement = setInterval(timeRemaining, 1000);
+
 function resetLevel(){
   for (var playerID in players) {
     var player = players[playerID];
