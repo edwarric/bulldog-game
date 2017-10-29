@@ -55,20 +55,22 @@ function manageEnemy(){
   //check if a player got killed
   for (var playerID in players) {
     var player = players[playerID];
-    if (player.x + player.Width >= enemyX && player.x + player.Width <= enemyX + enemyWidth){
-      if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
-          player.isAlive = false
+    if (player !== undefined) {
+      if (player.x + player.Width >= enemyX && player.x + player.Width <= enemyX + enemyWidth){
+        if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
+            player.isAlive = false
+        }
+        else if (player.y >= enemyY && player.y <= enemyY + enemyHeight){
+            player.isAlive = false
+        }
       }
-      else if (player.y >= enemyY && player.y <= enemyY + enemyHeight){
-          player.isAlive = false
-      }
-    }
-    else if (player.x >= enemyX && player.x <= enemyX + enemyWidth){
-      if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
-          player.isAlive = false
-      }
-      else if (player.y >= enemyY && player.y <= enemyY + enemyHeight){
-          player.isAlive = false
+      else if (player.x >= enemyX && player.x <= enemyX + enemyWidth){
+        if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
+            player.isAlive = false
+        }
+        else if (player.y >= enemyY && player.y <= enemyY + enemyHeight){
+            player.isAlive = false
+        }
       }
     }
   }
@@ -89,7 +91,7 @@ function gameloop() {
 
 
 };
-var timer = setInterval(gameloop, 200);
+var timer = setInterval(gameloop, 20);
 
 http.listen(3001, function(){
   console.log('listening on *:3001');
