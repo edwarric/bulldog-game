@@ -93,6 +93,18 @@
   #messages li:nth-child(odd) {
     background: #eee;
   }
+
+  #text-updates {
+    width: 600px;
+    margin: 10px auto 0;
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid #eee;
+  }
+
+  #player-name {
+    font-weight: 600;
+  }
 </style>
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -157,6 +169,7 @@ $(function () {
         </form>
       </div>
   <canvas id="myCanvas" width="600" height="450"></canvas>
+  <p id="text-updates"><span id="player-name"></span> has died.</p>    
 </body>
 <script src="/public/js/bulldog.js"></script>
 </html>

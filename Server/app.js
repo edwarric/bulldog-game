@@ -103,10 +103,28 @@ function timeRemaining(){
     level += 1;
     timeleft = 10;
     io.emit('next level', level);
+    for (var playerID in players) {
+      var player = players[playerID];
+      
+      if (player !== undefined) {
+        if (player.isFinished == false){
+          setPlayerAsDead(player);
+        }
+      }
   }
 }
   var secondIncrement = setInterval(timeRemaining, 1000);
-  
+function resetLevel(){
+  for (var playerID in players) {
+    var player = players[playerID];
+    var count = 0;
+    if (player !== undefined) {
+      if (player.isAlive == true){
+        player.isFinished = false;
+
+      }
+    }
+}  
 function gameloop() {
   manageEnemy();
   var update = {
