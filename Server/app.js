@@ -103,7 +103,7 @@ function gameloop() {
 
 
 };
-var timer = setInterval(gameloop, 200);
+var timer = setInterval(gameloop, 20);
 
 http.listen(3001, function(){
   console.log('listening on *:3001');
