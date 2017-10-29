@@ -150,4 +150,4 @@ function gameloop() {
 };
 var timer = setInterval(gameloop, 20);
 
-server.listen(3001);
+server.listen(3001, '0.0.0.0');
