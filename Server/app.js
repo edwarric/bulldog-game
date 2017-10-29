@@ -149,6 +149,6 @@ function gameloop() {
 };
 var timer = setInterval(gameloop, 20);
 
-http.listen(3001, function(){
+app.listen(3001, '0.0.0.0', function() {
   console.log('listening on *:3001');
 });
