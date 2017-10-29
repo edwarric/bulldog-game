@@ -106,17 +106,6 @@ function timeRemaining(){
   }
 }
   var secondIncrement = setInterval(timeRemaining, 1000);
-
-//IMPLEMENTING TIMER
-function timeRemaining(){
-  //timeLeft starts at 10
-  timeleft -= 1;
-
-  if (timeleft == 0){
-    timeleft = 10;
-  }
-}
-var secondIncrement = setInterval(timeRemaining, 1000);
   
 function gameloop() {
   manageEnemy();
