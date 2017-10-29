@@ -2,11 +2,7 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var obstacleSize = 20;
-var x = canvas.width/2;
-var y = canvas.height-30;
-var dx = 0;
-var dy = -2
-var level = 1;
+
 //player 1
 var playerHeight = 20;
 var playerWidth = 20;
@@ -90,9 +86,10 @@ function keyUpHandler(e) {
     }
 }
 
-function drawEnemy(n) {
+function drawEnemy() {
+    console.log(onlineEnemy);
     ctx.beginPath();
-    ctx.rect(x, y+(2*n*obstacleSize), obstacleSize, obstacleSize);
+    ctx.rect(onlineEnemy.x, onlineEnemy.y, onlineEnemy.width, onlineEnemy.height);
     ctx.fillStyle = "#FF0000";
     ctx.fill();
     ctx.closePath();
@@ -120,16 +117,10 @@ var count = 0;
 var count2 = 0;
 function main() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawEnemy(0);
+    drawEnemy();
     drawotherplayers();
     drawplayer();
 
-    if(x + dx > canvas.width-obstacleSize || x + dx < obstacleSize) {
-        dx = -dx;
-    }
-    if(y + dy > canvas.height-obstacleSize || y + dy < obstacleSize) {
-        dy = -dy;
-    }
   //Player1
     if(rightPressed && playerX < canvas.width-playerWidth) {
         playerX += 3;
@@ -180,41 +171,7 @@ function main() {
       else {
         level += 0.5;
       }
-    }
-//COLLISION WITH BALL PLAYER 1
-    if (playerX + playerWidth >= x && playerX + playerWidth <= x + obstacleSize){
-      if (playerY + playerHeight >= y && playerY + playerHeight <= y + obstacleSize){
-          reset(1);
-      }
-      else if (playerY >= y && playerY <= y + obstacleSize){
-        reset(1);
-      }
-    }
-    else if (playerX >= x && playerX <= x + obstacleSize){
-      if (playerY + playerHeight >= y && playerY + playerHeight <= y + obstacleSize){
-          reset(1);
-      }
-      else if (playerY >= y && playerY <= y + obstacleSize){
-        reset(1);
-      }
-    }
-//COLLISION WITH BALL PLAYER 2
-    if (player2X + player2Width >= x && player2X + player2Width <= x + obstacleSize){
-      if (player2Y + player2Height >= y && player2Y + player2Height <= y + obstacleSize){
-          reset(2);
-      }
-      else if (player2Y >= y && player2Y <= y + obstacleSize){
-        reset(2);
-      }
-    }
-    else if (player2X >= x && player2X <= x + obstacleSize){
-      if (player2Y + player2Height >= y && player2Y + player2Height <= y + obstacleSize){
-          reset(2);
-      }
-      else if (player2Y >= y && player2Y <= y + obstacleSize){
-        reset(2);
-      }
-    }
+}
 
 function reset(playerID){
     if (playerID == 1) {
@@ -229,8 +186,7 @@ function reset(playerID){
     }
 }
 
-    x += dx;
-    y += dy * level;
+
 }
 
 setInterval(main, 10);
