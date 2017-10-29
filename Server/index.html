@@ -24,9 +24,14 @@
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
+var onlineid = null;
 var onlinePlayerPositions = [];
 $(function () {
 var socket = io();
+socket.on('connect', function() {
+  console.log(socket);
+  onlineid = socket.id;
+});
 var player = {
   x: 5,
   y: 6,
