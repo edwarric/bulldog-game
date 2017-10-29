@@ -32,8 +32,7 @@ io.on('connection', function(socket){
     if (players[socket.id] !== undefined) {
       players[socket.id].x = playerUpdate.x;
       players[socket.id].y = playerUpdate.y;
-      console.log(playerUpdate.x);
-      console.log(socket.id);
+
     }
   })
   socket.on('disconnect', function(){
@@ -58,30 +57,48 @@ function manageEnemy(){
   //check if a player got killed
   for (var playerID in players) {
     var player = players[playerID];
-    if (player.x + player.Width >= enemyX && player.x + player.Width <= enemyX + enemyWidth){
-      if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
-          player.isAlive = false
+    if (player !== undefined) {
+      if (player.x + player.Width >= enemyX && player.x + player.Width <= enemyX + enemyWidth){
+        if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
+          setPlayerAsDead(player);
+        }
+        else if (player.y >= enemyY && player.y <= enemyY + enemyHeight){
+          setPlayerAsDead(player);
+        }
       }
-      else if (player.y >= enemyY && player.y <= enemyY + enemyHeight){
-          player.isAlive = false
-      }
-    }
-    else if (player.x >= enemyX && player.x <= enemyX + enemyWidth){
-      if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
-          player.isAlive = false
-      }
-      else if (player.y >= enemyY && player.y <= enemyY + enemyHeight){
-          player.isAlive = false
+      else if (player.x >= enemyX && player.x <= enemyX + enemyWidth){
+        if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
+          setPlayerAsDead(player);
+        }
+        else if (player.y >= enemyY && player.y <= enemyY + enemyHeight){
+          setPlayerAsDead(player);
+        }
       }
     }
   }
+  checkWin();
+}
+function checkWin(){
+  for (var playerID in players) {
+    var player = players[playerID];
+    if (player !== undefined) {
+      if (player.x >= 575){
+        player.hasFinished = true;
+        console.log("win");
+      }
+    }
+  }
+}
+function setPlayerAsDead(player) {
+  player.isAlive = false;
+  console.log("dead");
 }
 
 //IMPLEMENTING TIMER
 function timeRemaining(){
   //timeLeft starts at 10
   timeleft -= 1;
-  console.log(timeleft);
+
   if (timeleft == 0){
     level += 1;
     timeleft = 10;
@@ -90,6 +107,16 @@ function timeRemaining(){
 }
   var secondIncrement = setInterval(timeRemaining, 1000);
 
+//IMPLEMENTING TIMER
+function timeRemaining(){
+  //timeLeft starts at 10
+  timeleft -= 1;
+
+  if (timeleft == 0){
+    timeleft = 10;
+  }
+}
+var secondIncrement = setInterval(timeRemaining, 1000);
   
 function gameloop() {
   manageEnemy();
