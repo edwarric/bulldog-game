@@ -95,22 +95,24 @@ function drawEnemy() {
     ctx.closePath();
 }
 function drawplayer() {
-    ctx.beginPath();
-    ctx.rect(playerX, playerY, playerWidth, playerHeight);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
+    if (player !== undefined) {
+        ctx.beginPath();
+        ctx.rect(playerX, playerY, playerWidth, playerHeight);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+    }
 }
 
 function drawotherplayers() {
   for (var playerID in onlinePlayerPositions) {
     if (playerID != onlineid) {
-    var player = onlinePlayerPositions[playerID];
-    ctx.beginPath();
-    ctx.rect(player.x, player.y, player2Width, player2Height);
-    ctx.fillStyle = "#0035DD";
-    ctx.fill();
-    ctx.closePath();
+        var player = onlinePlayerPositions[playerID];
+        ctx.beginPath();
+        ctx.rect(player.x, player.y, player2Width, player2Height);
+        ctx.fillStyle = "#0035DD";
+        ctx.fill();
+        ctx.closePath();
     }
   }
 }
