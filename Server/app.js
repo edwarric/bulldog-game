@@ -58,22 +58,27 @@ function manageEnemy(){
     if (player !== undefined) {
       if (player.x + player.Width >= enemyX && player.x + player.Width <= enemyX + enemyWidth){
         if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
-            player.isAlive = false
+          setPlayerAsDead(player);
         }
         else if (player.y >= enemyY && player.y <= enemyY + enemyHeight){
-            player.isAlive = false
+          setPlayerAsDead(player);
         }
       }
       else if (player.x >= enemyX && player.x <= enemyX + enemyWidth){
         if (player.y + player.Height >= enemyY && player.y + player.Height <= enemyY + enemyHeight){
-            player.isAlive = false
+          setPlayerAsDead(player);
         }
         else if (player.y >= enemyY && player.y <= enemyY + enemyHeight){
-            player.isAlive = false
+          setPlayerAsDead(player);
         }
       }
     }
   }
+}
+
+function setPlayerAsDead(player) {
+  player.isAlive = false;
+  console.log("dead");
 }
 
 function gameloop() {
