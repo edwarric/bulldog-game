@@ -24,8 +24,14 @@
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
+var onlineid = null;
+var onlinePlayerPositions = [];
 $(function () {
 var socket = io();
+socket.on('connect', function() {
+  console.log(socket);
+  onlineid = socket.id;
+});
 var player = {
   x: 5,
   y: 6,
@@ -37,15 +43,26 @@ $('form').submit(function(){
   $('form').hide();
   return false;
 });
-
+socket.emit('new player', 'cheese');
 socket.on('game update', function(players){
+  onlinePlayerPositions = players;
   console.log('update: ' + players.length);
 });
 
-
+function gameloop() {
+  console.log('updating pos');
+  socket.emit('player update', {
+    x: playerX,
+    y: playerY,
+  });
+};
+var timer = setInterval(gameloop, 100);
 
 });
 </script>
+<form action="">
+  <input id="m" autocomplete="off" /><button>Send</button>
+</form>>
 
 <body>
 

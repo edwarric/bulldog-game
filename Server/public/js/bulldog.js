@@ -106,12 +106,17 @@ function drawplayer() {
     ctx.closePath();
 }
 
-function drawplayer2() {
-    ctx.beginPath();
-    ctx.rect(player2X, player2Y, player2Width, player2Height);
-    ctx.fillStyle = "#0035DD";
-    ctx.fill();
-    ctx.closePath();
+function drawotherplayers() {
+  for (var playerID in onlinePlayerPositions) {
+    var player = onlinePlayerPositions[playerID];
+    if (playerID != onlineid) {
+      ctx.beginPath();
+      ctx.rect(player.x, player.y, player2Width, player2Height);
+      ctx.fillStyle = "#0035DD";
+      ctx.fill();
+      ctx.closePath();
+    }
+  }
 }
 //SCORE
 var count = 0;
@@ -119,8 +124,8 @@ var count2 = 0;
 function main() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawEnemy(0);
+    drawotherplayers();
     drawplayer();
-    drawplayer2();
 
     if(enemyX + dx > canvas.width-enemySize || enemyX + dx < enemySize) {
         dx = -dx;
