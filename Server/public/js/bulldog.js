@@ -104,12 +104,14 @@ function drawplayer() {
 
 function drawotherplayers() {
   for (var playerID in onlinePlayerPositions) {
+    if (playerID != onlineid) {
     var player = onlinePlayerPositions[playerID];
     ctx.beginPath();
     ctx.rect(player.x, player.y, player2Width, player2Height);
     ctx.fillStyle = "#0035DD";
     ctx.fill();
     ctx.closePath();
+    }
   }
 }
 //SCORE
