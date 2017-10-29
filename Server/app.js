@@ -31,8 +31,7 @@ io.on('connection', function(socket){
     if (players[socket.id] !== undefined) {
       players[socket.id].x = playerUpdate.x;
       players[socket.id].y = playerUpdate.y;
-      console.log(playerUpdate.x);
-      console.log(socket.id);
+
     }
   })
   socket.on('disconnect', function(){
@@ -98,7 +97,7 @@ function setPlayerAsDead(player) {
 function timeRemaining(){
   //timeLeft starts at 10
   timeleft -= 1;
-  console.log(timeleft);
+
   if (timeleft == 0){
     timeleft = 10;
   }
@@ -109,7 +108,7 @@ function timeRemaining(){
 function timeRemaining(){
   //timeLeft starts at 10
   timeleft -= 1;
-  console.log(timeleft);
+
   if (timeleft == 0){
     timeleft = 10;
   }

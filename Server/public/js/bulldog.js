@@ -87,7 +87,7 @@ function keyUpHandler(e) {
 }
 
 function drawEnemy() {
-    console.log(onlineEnemy);
+
     ctx.beginPath();
     ctx.rect(onlineEnemy.x, onlineEnemy.y, onlineEnemy.width, onlineEnemy.height);
     ctx.fillStyle = "#FF0000";
@@ -151,7 +151,7 @@ function main() {
     }
 
 //RESET AND PLAYER EARNS POINT
-    if (playerX > 575) {
+  /*  if (playerX > 575) {
       count += 1;
       reset(1);
       reset(2);
@@ -186,7 +186,7 @@ function reset(playerID){
       player2Y = 120 + spawndiff * playerID;
 
     }
-}
+}*/
 
 
 }
